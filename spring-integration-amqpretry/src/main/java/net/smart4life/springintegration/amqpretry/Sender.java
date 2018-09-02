@@ -25,7 +25,7 @@ public class Sender {
 	@Autowired
 	private RabbitTemplate rabbitTemplate;
 	
-	@Scheduled(fixedDelay=3000, initialDelay=5000)
+	@Scheduled(fixedDelay=100, initialDelay=3000)
 	public void send() {
 		Integer num = cnt.incrementAndGet();
 		sendOneMessage(num);

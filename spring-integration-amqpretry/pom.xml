@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>spring-integration-amqpretry</name>
-	<description>Demo project Spring Integration retry functionality with amqp (RabbitMQ) queues </description>
+	<description>Demo project Spring Integration retry functionality with amqp (RabbitMQ) queues</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
