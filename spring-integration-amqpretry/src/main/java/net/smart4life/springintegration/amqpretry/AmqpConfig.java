@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Profile;
 @Profile("receiver")
 public class AmqpConfig {//NOSONAR
 	public static final String QUEUE_ITEM_CREATED = RetryAndErrorConfig.RABBIT_PREFIX+"m3.item.created";
+	public static final String QUEUE_ITEM_UPDATED = RetryAndErrorConfig.RABBIT_PREFIX+"m3.item.updated";
 	private static final String ROUTING_KEY_SUFFIX = ".#";
 	
 	@Bean
@@ -44,5 +45,20 @@ public class AmqpConfig {//NOSONAR
 				.bind(itemCreatedQueue)
 				.to(fromM3Exchange)
 				.with(QUEUE_ITEM_CREATED+ROUTING_KEY_SUFFIX);
+	}
+	
+	// Item updated config
+	@Bean
+	@Qualifier("itemUpdatedQueue")
+	public static Queue itemUpdatedQueue() {
+		return new Queue(QUEUE_ITEM_UPDATED, true, false, false, notProcessedDlxArguments());
+	}
+	
+	@Bean
+	public static Binding itemUpdatedBinding(TopicExchange fromM3Exchange, Queue itemUpdatedQueue) {
+		return BindingBuilder
+				.bind(itemUpdatedQueue)
+				.to(fromM3Exchange)
+				.with(QUEUE_ITEM_UPDATED+ROUTING_KEY_SUFFIX);
 	}
 }
